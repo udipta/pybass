@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>query</title>
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+<h4> 5. Delete a Song and display the current playlist of current user</h4><br><br>
+
+<table class="bodered">
+    <thead>
+    <tr>
+        <td>Songs title</td>
+        <td>Genre</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for line in cursor %}
+        <tr>
+            {% for x in line %}
+
+                <td>{{ x }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br><br><br>
+<a href="{% url 'music:index' %}" class="waves-effect waves-light btn right"> home </a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+</body>
+</html>
