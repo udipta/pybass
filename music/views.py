@@ -308,7 +308,7 @@ def q5(request):
     cursor = conn.execute(
         '''select s.song_title , a.genre from music_album a , music_song s , auth_user u 
           where  s.album_id = a.id and  a.user_id = u.id and 
-          u.date_joined = (select max(date_joined) from auth_user)''' \
+          u.last_login = (select max(last_login) from auth_user)''' \
     ).fetchall()
 
     context = {"cursor": cursor}
