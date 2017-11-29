@@ -4,15 +4,17 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.db.models import Q
 from .forms import AlbumForm, SongForm, UserForm
-from .models import Album, Song, Feedback
+from .models import Album, Song
 import sqlite3
 
 AUDIO_FILE_TYPES = ['wav', 'mp3', 'ogg']
 IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
 
+
 def sqlconnection():
     conn = sqlite3.connect('pybass.db')
     return conn
+
 
 def create_album(request):
     if not request.user.is_authenticated():
