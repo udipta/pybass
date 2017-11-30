@@ -1,0 +1,67 @@
+-- auto-generated definition
+CREATE TABLE auth_user
+(
+  id           INTEGER      NOT NULL
+    PRIMARY KEY
+  AUTOINCREMENT,
+  password     VARCHAR(128) NOT NULL,
+  last_login   DATETIME,
+  is_superuser bool         NOT NULL,
+  first_name   VARCHAR(30)  NOT NULL,
+  last_name    VARCHAR(30)  NOT NULL,
+  email        VARCHAR(254) NOT NULL,
+  is_staff     bool         NOT NULL,
+  is_active    bool         NOT NULL,
+  date_joined  DATETIME     NOT NULL,
+  username     VARCHAR(150) NOT NULL
+    UNIQUE
+);
+
+
+-- auto-generated definition
+CREATE TABLE music_album
+(
+  id          INTEGER      NOT NULL
+    PRIMARY KEY
+  AUTOINCREMENT,
+  artist      VARCHAR(250) NOT NULL,
+  album_title VARCHAR(500) NOT NULL,
+  genre       VARCHAR(100) NOT NULL,
+  album_logo  VARCHAR(100) NOT NULL,
+  is_favorite bool         NOT NULL,
+  user_id     INTEGER      NOT NULL
+    REFERENCES auth_user (id)
+);
+CREATE INDEX music_album_user_id_5762717f
+  ON music_album (user_id);
+
+
+-- auto-generated definition
+CREATE TABLE music_song
+(
+  id          INTEGER      NOT NULL
+    PRIMARY KEY
+  AUTOINCREMENT,
+  song_title  VARCHAR(250) NOT NULL,
+  audio_file  VARCHAR(100) NOT NULL,
+  is_favorite bool         NOT NULL,
+  album_id    INTEGER      NOT NULL
+    REFERENCES music_album (id)
+);
+CREATE INDEX music_song_album_id_62a413c8
+  ON music_song (album_id);
+
+
+-- auto-generated definition
+CREATE TABLE music_feedback
+(
+  id            INTEGER      NOT NULL
+    PRIMARY KEY
+  AUTOINCREMENT,
+  fname         VARCHAR(20)  NOT NULL,
+  lname         VARCHAR(20)  NOT NULL,
+  presentation  VARCHAR(20)  NOT NULL,
+  collaboration VARCHAR(20)  NOT NULL,
+  objectives    VARCHAR(20)  NOT NULL,
+  suggestion    VARCHAR(500) NOT NULL
+);

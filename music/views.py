@@ -7,6 +7,7 @@ from .forms import AlbumForm, SongForm, UserForm
 from .models import Album, Song
 import sqlite3
 
+
 AUDIO_FILE_TYPES = ['wav', 'mp3', 'ogg']
 IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
 
@@ -262,7 +263,7 @@ def q2(request):
         '''select s.song_title, a.album_title, a.artist
             from music_album a, music_song s, auth_user u where a.id = s.album_id 
             and a.user_id = u.id and u.is_superuser = 1
-            order by a.album_title, a.artist''' \
+            order by a.album_title, a.artist'''
     ).fetchall()
 
     context = {"cursor": cursor}
@@ -282,7 +283,7 @@ def q3(request):
 def q4(request):
     conn = sqlconnection()
 
-    cursor = conn.execute("drop view userview")
+    cursor = conn.execute("DROP VIEW IF EXISTS userview")
     conn.commit()
     cursor.close()
 
@@ -295,7 +296,7 @@ def q4(request):
               (select u1.id from auth_user u1 where u1.last_login in 
                 (select max(last_login) from auth_user)
               )
-           )''' \
+           )'''
     )
     conn.commit()
     cursor = cursor.execute("select * from userview").fetchall()
@@ -310,7 +311,7 @@ def q5(request):
     cursor = conn.execute(
         '''select s.song_title , a.genre from music_album a , music_song s , auth_user u 
           where  s.album_id = a.id and  a.user_id = u.id and 
-          u.last_login = (select max(last_login) from auth_user)''' \
+          u.last_login = (select max(last_login) from auth_user) order by 2 asc '''
     ).fetchall()
 
     context = {"cursor": cursor}
