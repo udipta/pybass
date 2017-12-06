@@ -241,6 +241,16 @@ def feedback(request):
                             presentation, collaboration, objectives, suggestion
                             )
             )
+            
+            conn.execute("DROP TRIGGER IF EXISTS updatefeedback")
+
+            conn.execute('''CREATE TRIGGER updatefeedback AFTER INSERT ON music_feedback
+                            FOR EACH ROW
+                            BEGIN
+                              UPDATE music_feedback SET fname = UPPER(fname);
+                              UPDATE music_feedback SET lname = UPPER(lname);
+                            END;'''
+            )
             conn.commit()
             conn.close()
             return index(request)
